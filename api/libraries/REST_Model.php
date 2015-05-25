@@ -4,20 +4,32 @@
  * REST Model
  *
  * This abstract class is designed to help rapidly build
- * single table resource operations.
+ * single database table resource operations.
  *
- * Pairs well with REST_Controller
+ * Designed to compliment Phil Sturgeons REST_Controller
  *
- * All operations that can return data will.  For example
- * calling update() on a resource will return that updated 
- * resource
+ * @see https://github.com/philsturgeon/codeigniter-restserver
+ *
+ * All operations return the current state of that resource 
+ * operation.  
+ * 
+ * For example:
+ *     calling PUT /resource/:id returns the updated 
+ *     resource
  * 
  * @author Geoff Doty <n2geoff@gmail.com>
+ * @since  02/05/2014
  */
 abstract class REST_Model extends CI_Model {
+
+    //database table tied to resouce
+    protected $_table  = NULL;
     
-    protected $_id    = NULL;
-    protected $_table = NULL;
+    //primary key
+    protected $_id     = NULL;
+
+    //accepted fields
+    protected $_fields = array();
 
     /**
      * Find One Resource
@@ -188,5 +200,20 @@ abstract class REST_Model extends CI_Model {
     public function count()
     {
         return $this->db->count_all($this->_table);
+    }
+
+    private function filter() 
+    {
+
+    }
+
+    protected function before($in, $out) 
+    {
+
+    }
+
+    protected function after($in, $out) 
+    {
+
     }
 }
